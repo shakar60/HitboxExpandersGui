@@ -1,0 +1,90 @@
+-- Create the ScreenGui
+local gui = Instance.new("ScreenGui")
+gui.Name = "HitboxExpander"
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Create the main frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 200, 0, 280)  -- Reduced height
+mainFrame.Position = UDim2.new(0.5, -100, 0.5, -140)  -- Adjusted position
+mainFrame.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = gui
+
+-- Create label for the GUI
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Size = UDim2.new(1, 0, 0, 20)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+titleLabel.BorderSizePixel = 0
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.Text = "Hitbox Expander Gui"
+titleLabel.Font = Enum.Font.SourceSans
+titleLabel.TextSize = 16
+titleLabel.Parent = mainFrame
+
+-- Create labels and buttons for each expander
+local hitboxNames = {"Hitbox Expander 1", "Hitbox Expander 2", "Hitbox Expander 3", "Hitbox Expander 4"}
+local scripts = {
+    [1] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/shakar60/hit/main/box',true))()",
+    [2] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/Vcsk/RobloxScripts/main/HitboxExpander.lua'))()",
+    [3] = "loadstring(game:HttpGet('https://pastebin.com/raw/JgtddWA3'))()",
+    [4] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/louismich4el/ItsLouisPlayz-Scripts/main/Hitbox%20Expander.lua'))()"
+}
+
+for i, hitboxName in ipairs(hitboxNames) do
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Name = "NameLabel"..i
+    nameLabel.Size = UDim2.new(0, 180, 0, 20)
+    nameLabel.Position = UDim2.new(0, 10, 0, 30 + (i - 1) * 60)  -- Reduced vertical spacing
+    nameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    nameLabel.BorderSizePixel = 0
+    nameLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    nameLabel.Text = hitboxName
+    nameLabel.Font = Enum.Font.SourceSans
+    nameLabel.TextSize = 16
+    nameLabel.Parent = mainFrame
+
+    local expandButton = Instance.new("TextButton")
+    expandButton.Name = "ExpandButton"..i
+    expandButton.Size = UDim2.new(0, 180, 0, 40)  -- Reduced button height
+    expandButton.Position = UDim2.new(0, 10, 0, 50 + (i - 1) * 60)  -- Adjusted position
+    expandButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    expandButton.BorderSizePixel = 0
+    expandButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    expandButton.Text = "Expand Hitbox"
+    expandButton.Font = Enum.Font.SourceSans
+    expandButton.TextSize = 14
+    expandButton.Parent = mainFrame
+
+    expandButton.MouseButton1Click:Connect(function()
+        loadstring(scripts[i])()
+    end)
+end
+
+-- Create close button
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 20, 0, 20)
+closeButton.Position = UDim2.new(1, -20, 0, 0)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+closeButton.BorderSizePixel = 0
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Text = "X"
+closeButton.Font = Enum.Font.SourceSans
+closeButton.TextSize = 14
+closeButton.Parent = titleLabel
+
+closeButton.MouseButton1Click:Connect(function()
+    -- Remove hitbox expanders
+    for i, hitboxName in ipairs(hitboxNames) do
+        print("Removing hitbox expander "..i)
+        -- Add code to remove hitbox expander here
+    end
+
+    -- Destroy GUI
+    gui:Destroy()
+end)
