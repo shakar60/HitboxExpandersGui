@@ -1,14 +1,13 @@
 -- Create the ScreenGui
 local gui = Instance.new("ScreenGui")
-gui.Name = "HitboxExpanderGui"
+gui.Name = "HitboxExpander"
 gui.Parent = game.Players.LocalPlayer.PlayerGui
 
--- Create the main frame with improved visibility
+-- Create the main frame
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 220, 0, 220) -- Adjusted size for better visibility
-mainFrame.Position = UDim2.new(0.5, -110, 0.5, -140) -- Adjusted position for vertical centering
-mainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Darker background
-mainFrame.BackgroundTransparency = 0.2 -- Slight transparency
+mainFrame.Size = UDim2.new(0, 220, 0, 230)  -- Adjusted size to match Anti Fling UI
+mainFrame.Position = UDim2.new(0.5, -110, 0.5, -150)  -- Centered on the screen
+mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Darker background color
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
 mainFrame.Draggable = true
@@ -16,36 +15,36 @@ mainFrame.Parent = gui
 
 -- Add rounded corners to the main frame
 local UICornerMain = Instance.new("UICorner")
-UICornerMain.CornerRadius = UDim.new(0, 25)
+UICornerMain.CornerRadius = UDim.new(0, 12)  -- Rounded corners
 UICornerMain.Parent = mainFrame
 
--- Create title label with a more visible design
+-- Create the title label with Anti Fling UI style
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
-titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Slightly larger for better visibility
 titleLabel.Position = UDim2.new(0, 0, 0, 0)
-titleLabel.BackgroundTransparency = 1 -- Transparent background
+titleLabel.BackgroundTransparency = 1  -- Transparent background
 titleLabel.BorderSizePixel = 0
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.Text = "Hitbox Expander GUI"
-titleLabel.Font = Enum.Font.SourceSans
-titleLabel.TextSize = 18
+titleLabel.Text = "Hitbox Expander"
+titleLabel.Font = Enum.Font.GothamBold  -- Matching the font style
+titleLabel.TextSize = 20  -- Larger font size
 titleLabel.Parent = mainFrame
 
--- Create the X button with a clean, visible design
+-- Create the close button
 local closeButton = Instance.new("TextButton")
 closeButton.Name = "CloseButton"
 closeButton.Size = UDim2.new(0, 20, 0, 20)
-closeButton.Position = UDim2.new(1, -20, 0, 0)
-closeButton.BackgroundTransparency = 1 -- Transparent background
+closeButton.Position = UDim2.new(1, -25, 0, 5)  -- Adjusted for better positioning
+closeButton.BackgroundTransparency = 1  -- Transparent background
 closeButton.BorderSizePixel = 0
-closeButton.TextColor3 = Color3.fromRGB(255, 50, 50)
+closeButton.TextColor3 = Color3.fromRGB(255, 70, 70)  -- Red color for better visibility
 closeButton.Text = "X"
-closeButton.Font = Enum.Font.SourceSans
-closeButton.TextSize = 14
+closeButton.Font = Enum.Font.GothamBold  -- Matching the font style
+closeButton.TextSize = 16
 closeButton.Parent = titleLabel
 
--- Define the script URLs and names
+-- Create labels and buttons for each expander
 local hitboxNames = {"Hitbox Expander 1", "Hitbox Expander 2", "Hitbox Expander 3", "Hitbox Expander 4"}
 local scripts = {
     [1] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/shakar60/hit/main/box',true))()",
@@ -54,43 +53,47 @@ local scripts = {
     [4] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/louismich4el/ItsLouisPlayz-Scripts/main/Hitbox%20Expander.lua'))()"
 }
 
--- Create a frame to hold the buttons
+-- Create the button frame to hold the buttons
 local buttonFrame = Instance.new("Frame")
 buttonFrame.Name = "ButtonFrame"
-buttonFrame.Size = UDim2.new(1, -10, 1, -35) -- Adjusted size to fit within mainFrame
-buttonFrame.Position = UDim2.new(0, 5, 0, 35)
-buttonFrame.BackgroundTransparency = 1 -- Transparent background
+buttonFrame.Size = UDim2.new(1, 0, 1, -40)  -- Adjusted size
+buttonFrame.Position = UDim2.new(0, 0, 0, 40)
+buttonFrame.BackgroundTransparency = 1  -- Transparent background
 buttonFrame.Parent = mainFrame
 
 -- Add rounded corners to the button frame
 local UICornerButtonFrame = Instance.new("UICorner")
-UICornerButtonFrame.CornerRadius = UDim.new(0, 20)
+UICornerButtonFrame.CornerRadius = UDim.new(0, 10)  -- Rounded corners for the button frame
 UICornerButtonFrame.Parent = buttonFrame
 
 -- Create buttons for each script
-local yOffset = 5 -- Initial vertical offset
+local yOffset = 10  -- Initial vertical offset
 for i, hitboxName in ipairs(hitboxNames) do
-    local button = Instance.new("TextButton")
-    button.Name = "ScriptButton_"..i
-    button.Size = UDim2.new(1, -10, 0, 40) -- Adjusted button size
-    button.Position = UDim2.new(0, 5, 0, yOffset)
-    button.BackgroundColor3 = Color3.fromRGB(70, 70, 70) -- Slightly lighter button background
-    button.BackgroundTransparency = 0.3 -- Less transparent for better visibility
-    button.BorderSizePixel = 0
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Text = hitboxName
-    button.Font = Enum.Font.SourceSans
-    button.TextSize = 14
-    button.Parent = buttonFrame
+    local expandButton = Instance.new("TextButton")
+    expandButton.Name = "ExpandButton"..i
+    expandButton.Size = UDim2.new(0.9, 0, 0, 35)  -- Adjusted button size
+    expandButton.Position = UDim2.new(0.05, 0, 0, yOffset)
+    expandButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)  -- Matching button color
+    expandButton.BorderSizePixel = 0
+    expandButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    expandButton.Text = hitboxName
+    expandButton.Font = Enum.Font.Gotham
+    expandButton.TextSize = 14
+    expandButton.Parent = buttonFrame
 
-    button.MouseButton1Click:Connect(function()
+    -- Add rounded corners to the button
+    local UICornerButton = Instance.new("UICorner")
+    UICornerButton.CornerRadius = UDim.new(0, 8)  -- Rounded corners for buttons
+    UICornerButton.Parent = expandButton
+
+    expandButton.MouseButton1Click:Connect(function()
         loadstring(scripts[i])()
     end)
 
-    yOffset = yOffset + 45 -- Increased spacing for clarity
+    yOffset = yOffset + 40  -- Vertical spacing between buttons
 end
 
--- Create the X button click event to close the GUI
+-- Create the close button click event to close the GUI
 closeButton.MouseButton1Click:Connect(function()
     -- Add code to remove hitbox expander here (if necessary)
 
